@@ -8,95 +8,44 @@
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
 
   :root {
-    --celeste: #74ACDF;
-    --blanco: #F4F4F4;
-    --gris: #2a2a2a;
-    --gris-medio: #3d3d3d;
-    --gris-claro: #5a5a5a;
-    --acento: #e8c547;
-    --verde: #4caf7d;
-    --rojo: #e05555;
-    --naranja: #e07a30;
-    --texto: #1a1a1a;
+    --celeste: #74ACDF; --blanco: #F4F4F4; --gris: #2a2a2a;
+    --gris-medio: #3d3d3d; --gris-claro: #5a5a5a;
+    --acento: #e8c547; --verde: #4caf7d; --rojo: #e05555; --naranja: #e07a30; --texto: #1a1a1a;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--gris); font-family: 'IBM Plex Sans', sans-serif; color: var(--blanco); min-height: 100vh; }
 
-  body {
-    background: var(--gris);
-    font-family: 'IBM Plex Sans', sans-serif;
-    color: var(--blanco);
-    min-height: 100vh;
-  }
-
-  header {
-    background: var(--celeste);
-    border-bottom: 4px solid var(--acento);
-    overflow: hidden;
-  }
-
+  header { background: var(--celeste); border-bottom: 4px solid var(--acento); }
   .header-inner { display: flex; align-items: stretch; }
-
   .header-flag { display: flex; flex-direction: column; width: 10px; flex-shrink: 0; }
   .flag-stripe { flex: 1; }
   .flag-stripe.celeste { background: var(--celeste); }
   .flag-stripe.blanco { background: white; }
+  .header-content { padding: 14px 20px; flex: 1; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .header-titles { flex: 1; }
+  .app-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--texto); letter-spacing: 2px; line-height: 1; }
+  .app-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--gris); letter-spacing: 3px; text-transform: uppercase; margin-top: 3px; opacity: 0.7; }
 
-  .header-content { padding: 18px 24px 14px; flex: 1; }
+  .usuario-wrap { display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.12); padding: 5px 10px; }
+  .usuario-wrap label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--gris); opacity: 0.8; white-space: nowrap; }
+  .usuario-wrap input { background: transparent; border: none; border-bottom: 1px solid rgba(0,0,0,0.2); color: var(--texto); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; width: 110px; padding: 1px 2px; }
+  .usuario-wrap input:focus { outline: none; border-bottom-color: var(--texto); }
 
-  .app-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--texto);
-    letter-spacing: 2px;
-    line-height: 1;
-  }
-
-  .app-subtitle {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--gris);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 4px;
-    opacity: 0.7;
-  }
+  .sync-indicator { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 1px; padding: 5px 10px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.12); color: var(--texto); white-space: nowrap; }
+  .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gris-claro); transition: background 0.3s; }
+  .sync-dot.conectado { background: var(--verde); }
+  .sync-dot.sincronizando { background: var(--acento); animation: pulso 0.8s infinite; }
+  .sync-dot.error { background: var(--rojo); }
+  @keyframes pulso { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
 
   .main { padding: 20px; max-width: 900px; margin: 0 auto; }
 
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: 3px;
-    color: var(--acento);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px; color: var(--acento); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
   .section-title::after { content: ''; flex: 1; height: 1px; background: var(--gris-claro); }
 
-  .actividades-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
+  .actividades-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 
-  .btn {
-    background: var(--acento);
-    color: var(--texto);
-    border: none;
-    padding: 8px 16px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.15s;
-  }
+  .btn { background: var(--acento); color: var(--texto); border: none; padding: 8px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; text-transform: uppercase; transition: all 0.15s; }
   .btn:hover { background: white; }
   .btn.secondary { background: transparent; color: var(--blanco); border: 1px solid var(--gris-claro); }
   .btn.secondary:hover { border-color: var(--blanco); }
@@ -106,126 +55,50 @@
 
   .actividades-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
 
-  .actividad-card {
-    background: var(--gris-medio);
-    border-left: 4px solid var(--gris-claro);
-    cursor: pointer;
-    transition: all 0.15s;
-    overflow: hidden;
-  }
+  .actividad-card { background: var(--gris-medio); border-left: 4px solid var(--gris-claro); cursor: pointer; transition: all 0.15s; overflow: hidden; }
   .actividad-card:hover { border-left-color: var(--celeste); }
   .actividad-card.selected { border-left-color: var(--acento); background: #464646; }
-
-  .actividad-card-header { padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+  .actividad-card-header { padding: 12px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .actividad-nombre { flex: 1; font-weight: 600; font-size: 0.95rem; }
-  .actividad-tipo {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gris-claro);
-    background: rgba(0,0,0,0.3);
-    padding: 2px 8px;
-  }
+  .tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; background: rgba(0,0,0,0.3); padding: 2px 8px; color: var(--gris-claro); }
+  .tag.zona { color: var(--celeste); }
   .actividad-fecha { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--celeste); }
-
+  .pct { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; }
   .progress-bar-wrap { height: 3px; background: rgba(0,0,0,0.3); }
-  .progress-bar-fill { height: 100%; background: var(--verde); transition: width 0.4s ease; }
+  .progress-bar-fill { height: 100%; transition: width 0.4s ease; }
 
-  .detalle-panel {
-    background: var(--gris-medio);
-    padding: 20px;
-    margin-bottom: 24px;
-    animation: slideIn 0.2s ease;
-  }
-  @keyframes slideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+  .detalle-panel { background: var(--gris-medio); padding: 20px; margin-bottom: 24px; animation: slideIn 0.2s ease; }
+  @keyframes slideIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
 
-  .detalle-nombre-edit {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--gris-claro);
-    flex-wrap: wrap;
-  }
-
-  .detalle-nombre-edit input, .detalle-nombre-edit select {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid var(--gris-claro);
-    color: var(--blanco);
-    padding: 6px 10px;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 0.9rem;
-  }
-  .detalle-nombre-edit input { flex: 1; min-width: 150px; }
+  .detalle-nombre-edit { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--gris-claro); flex-wrap: wrap; }
+  .detalle-nombre-edit input, .detalle-nombre-edit select { background: rgba(0,0,0,0.3); border: 1px solid var(--gris-claro); color: var(--blanco); padding: 6px 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; }
+  .detalle-nombre-edit input { flex: 1; min-width: 140px; }
   .detalle-nombre-edit input[type="date"] { flex: 0; min-width: 140px; }
 
   .areas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 600px) { .areas-grid { grid-template-columns: 1fr; } }
 
   .area-block { background: rgba(0,0,0,0.2); padding: 14px; }
-
-  .area-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
+  .area-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
   .area-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-  .tarea-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .tarea-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
   .tarea-label { flex: 1; font-size: 0.8rem; color: #ccc; }
 
-  .estado-btn {
-    width: 28px; height: 28px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.75rem;
-    font-weight: bold;
-    border-radius: 2px;
-    transition: all 0.1s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
+  .estado-btn { width: 28px; height: 28px; border: none; cursor: pointer; font-size: 0.75rem; font-weight: bold; border-radius: 2px; transition: all 0.1s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .estado-btn.pendiente { background: rgba(255,255,255,0.1); color: #aaa; }
   .estado-btn.pendiente:hover { background: rgba(255,255,255,0.2); }
   .estado-btn.ok { background: var(--verde); color: white; }
   .estado-btn.na { background: var(--gris-claro); color: white; font-size: 0.6rem; }
   .estado-btn.problema { background: var(--rojo); color: white; }
 
-  .tarea-nota {
-    background: rgba(0,0,0,0.25);
-    border: none;
-    border-bottom: 1px solid var(--gris-claro);
-    color: #bbb;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    padding: 3px 6px;
-    margin-top: 2px;
-    margin-left: 36px;
-    width: calc(100% - 36px);
-  }
+  .tarea-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; color: var(--gris-claro); margin-left: 120px; margin-bottom: 2px; }
+  .tarea-nota { background: rgba(0,0,0,0.25); border: none; border-bottom: 1px solid var(--gris-claro); color: #bbb; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; padding: 3px 6px; margin-bottom: 8px; margin-left: 120px; width: calc(100% - 120px); }
   .tarea-nota:focus { outline: none; border-bottom-color: var(--celeste); color: white; }
 
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-  }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; z-index: 100; }
   .modal { background: var(--gris-medio); padding: 24px; width: 420px; max-width: 95vw; border-top: 3px solid var(--acento); }
   .modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 16px; color: var(--acento); }
-
   .form-field { margin-bottom: 12px; }
   .form-field label { display: block; font-size: 0.65rem; font-family: 'IBM Plex Mono', monospace; letter-spacing: 2px; text-transform: uppercase; color: #aaa; margin-bottom: 4px; }
   .form-field input, .form-field select { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--gris-claro); color: var(--blanco); padding: 8px 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; }
@@ -235,15 +108,12 @@
   .empty-state { text-align: center; padding: 40px 20px; color: var(--gris-claro); }
   .empty-state .big { font-size: 2rem; margin-bottom: 8px; }
   .empty-state p { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 1px; }
+  .loading { text-align: center; padding: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--gris-claro); letter-spacing: 2px; }
 
-  .color-prensa { color: var(--celeste); }
-  .dot-prensa { background: var(--celeste); }
-  .color-construccion { color: var(--acento); }
-  .dot-construccion { background: var(--acento); }
-  .color-organizacion { color: var(--verde); }
-  .dot-organizacion { background: var(--verde); }
-  .color-finanzas { color: var(--naranja); }
-  .dot-finanzas { background: var(--naranja); }
+  .color-prensa { color: var(--celeste); } .dot-prensa { background: var(--celeste); }
+  .color-construccion { color: var(--acento); } .dot-construccion { background: var(--acento); }
+  .color-organizacion { color: var(--verde); } .dot-organizacion { background: var(--verde); }
+  .color-finanzas { color: var(--naranja); } .dot-finanzas { background: var(--naranja); }
 
   .stats-bar { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
   .stat-chip { background: rgba(0,0,0,0.3); padding: 6px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
@@ -260,50 +130,41 @@
       <div class="flag-stripe celeste"></div>
     </div>
     <div class="header-content">
-      <div class="app-title">Gestión de Actividades</div>
-      <div class="app-subtitle">Panel organizativo · Mala Junta</div>
+      <div class="header-titles">
+        <div class="app-title">Gestión de Actividades</div>
+        <div class="app-subtitle">Panel organizativo</div>
+      </div>
+      <div class="usuario-wrap">
+        <label>Militante:</label>
+        <input type="text" id="usuario-input" placeholder="tu nombre" maxlength="30">
+      </div>
+      <div class="sync-indicator">
+        <div class="sync-dot" id="sync-dot"></div>
+        <span id="sync-label">Conectando...</span>
+      </div>
     </div>
   </div>
 </header>
 
 <div class="main">
   <div id="stats-bar" class="stats-bar"></div>
-
   <div class="actividades-header">
     <div class="section-title" style="margin:0;flex:1">Actividades</div>
     <button class="btn" onclick="abrirModal()">+ Nueva actividad</button>
   </div>
-
-  <div class="actividades-list" id="actividades-list"></div>
+  <div class="actividades-list" id="actividades-list"><div class="loading">Cargando datos...</div></div>
   <div id="detalle-panel" style="display:none"></div>
 </div>
 
 <div class="modal-overlay" id="modal" style="display:none">
   <div class="modal">
     <h3>Nueva Actividad</h3>
-    <div class="form-field">
-      <label>Nombre</label>
-      <input type="text" id="m-nombre" placeholder="Ej: Jornada de salud barrial">
+    <div class="form-field"><label>Nombre</label><input type="text" id="m-nombre" placeholder="Ej: Jornada de salud barrial"></div>
+    <div class="form-field"><label>Tipo</label>
+      <select id="m-tipo"><option>Política</option><option>Cultural</option><option>Salud</option><option>Educativa</option><option>Solidaria</option><option>Género</option></select>
     </div>
-    <div class="form-field">
-      <label>Tipo</label>
-      <select id="m-tipo">
-        <option>Política</option>
-        <option>Cultural</option>
-        <option>Salud</option>
-        <option>Educativa</option>
-        <option>Solidaria</option>
-        <option>Género</option>
-      </select>
-    </div>
-    <div class="form-field">
-      <label>Fecha</label>
-      <input type="date" id="m-fecha">
-    </div>
-    <div class="form-field">
-      <label>Zona / Espacio</label>
-      <input type="text" id="m-zona" placeholder="Ej: Sede central">
-    </div>
+    <div class="form-field"><label>Fecha</label><input type="date" id="m-fecha"></div>
+    <div class="form-field"><label>Zona / Espacio</label><input type="text" id="m-zona" placeholder="Ej: Sede central"></div>
     <div class="modal-actions">
       <button class="btn secondary" onclick="cerrarModal()">Cancelar</button>
       <button class="btn" onclick="crearActividad()">Crear</button>
@@ -311,73 +172,95 @@
   </div>
 </div>
 
-<script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getDatabase, ref, onValue, set, update, remove, push } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAvUpbVMGtPt9CdToy5rhYWuxY2ZWAgO0U",
+  authDomain: "gestion-actividades-orga.firebaseapp.com",
+  databaseURL: "https://gestion-actividades-orga-default-rtdb.firebaseio.com",
+  projectId: "gestion-actividades-orga",
+  storageBucket: "gestion-actividades-orga.firebasestorage.app",
+  messagingSenderId: "108373642172",
+  appId: "1:108373642172:web:13d537e2da0f76664fb9b9"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 const AREAS = {
-  prensa: {
-    label: 'Prensa', color: 'prensa',
-    tareas: [
-      { id: 'difusion', label: 'Difusión' },
-      { id: 'flyer_redes', label: 'Flyer redes' },
-      { id: 'flyer_volanteada', label: 'Flyer volanteada' },
-      { id: 'cobertura', label: 'Cobertura' },
-      { id: 'publicacion_posterior', label: 'Publicación posterior' },
-    ]
-  },
-  construccion: {
-    label: 'Construcción', color: 'construccion',
-    tareas: [
-      { id: 'convocatoria_contactxs', label: '¿Se convoca a contactxs?' },
-      { id: 'participacion_tareas', label: '¿Contactxs participan en tareas?' },
-    ]
-  },
-  organizacion: {
-    label: 'Organización', color: 'organizacion',
-    tareas: [
-      { id: 'esquema_seguridad', label: 'Esquema de seguridad' },
-      { id: 'intervenciones', label: 'Intervenciones' },
-      { id: 'convocatoria_zonal', label: 'Convocatoria zonal' },
-      { id: 'espacio_mesas', label: 'Espacio – Mesas' },
-      { id: 'espacio_sillas', label: 'Espacio – Sillas' },
-      { id: 'espacio_sonido', label: 'Espacio – Sonido' },
-      { id: 'espacio_proyeccion', label: 'Espacio – Proyección' },
-      { id: 'espacio_escenario', label: 'Espacio – Escenario' },
-      { id: 'estructura', label: 'Estructura / Ambientación' },
-      { id: 'cronograma', label: 'Cronograma' },
-      { id: 'tareas_roles', label: 'Asignación de roles/turnos' },
-    ]
-  },
-  finanzas: {
-    label: 'Finanzas', color: 'finanzas',
-    tareas: [
-      { id: 'bebida', label: 'Bebida' },
-      { id: 'comida', label: 'Comida' },
-      { id: 'materiales', label: 'Materiales propios' },
-      { id: 'manteles', label: 'Manteles' },
-      { id: 'decoracion', label: 'Decoración' },
-      { id: 'luces', label: 'Luces' },
-      { id: 'pantallas', label: 'Pantallas' },
-    ]
-  }
+  prensa: { label: 'Prensa', color: 'prensa', tareas: [
+    { id: 'difusion', label: 'Difusión' },
+    { id: 'flyer_redes', label: 'Flyer redes' },
+    { id: 'flyer_volanteada', label: 'Flyer volanteada' },
+    { id: 'cobertura', label: 'Cobertura' },
+    { id: 'publicacion_posterior', label: 'Publicación posterior' },
+  ]},
+  construccion: { label: 'Construcción', color: 'construccion', tareas: [
+    { id: 'convocatoria_contactxs', label: '¿Se convoca a contactxs?' },
+    { id: 'participacion_tareas', label: '¿Contactxs participan en tareas?' },
+  ]},
+  organizacion: { label: 'Organización', color: 'organizacion', tareas: [
+    { id: 'esquema_seguridad', label: 'Esquema de seguridad' },
+    { id: 'intervenciones', label: 'Intervenciones' },
+    { id: 'convocatoria_zonal', label: 'Convocatoria zonal' },
+    { id: 'espacio_mesas', label: 'Espacio – Mesas' },
+    { id: 'espacio_sillas', label: 'Espacio – Sillas' },
+    { id: 'espacio_sonido', label: 'Espacio – Sonido' },
+    { id: 'espacio_proyeccion', label: 'Espacio – Proyección' },
+    { id: 'espacio_escenario', label: 'Espacio – Escenario' },
+    { id: 'estructura', label: 'Estructura / Ambientación' },
+    { id: 'cronograma', label: 'Cronograma' },
+    { id: 'tareas_roles', label: 'Asignación de roles/turnos' },
+  ]},
+  finanzas: { label: 'Finanzas', color: 'finanzas', tareas: [
+    { id: 'bebida', label: 'Bebida' },
+    { id: 'comida', label: 'Comida' },
+    { id: 'materiales', label: 'Materiales propios' },
+    { id: 'manteles', label: 'Manteles' },
+    { id: 'decoracion', label: 'Decoración' },
+    { id: 'luces', label: 'Luces' },
+    { id: 'pantallas', label: 'Pantallas' },
+  ]}
 };
 
 const ESTADOS = ['pendiente', 'ok', 'na', 'problema'];
 const ESTADO_ICONS = { pendiente: '–', ok: '✓', na: 'N/A', problema: '!' };
 
-let actividades = [];
+let actividades = {};
 let seleccionada = null;
+let usuario = localStorage.getItem('mj_usuario') || '';
 
-function cargarStorage() {
-  try { const d = localStorage.getItem('malajunta_actividades'); if (d) actividades = JSON.parse(d); } catch(e) {}
+const usuarioInput = document.getElementById('usuario-input');
+usuarioInput.value = usuario;
+usuarioInput.addEventListener('change', () => {
+  usuario = usuarioInput.value.trim() || 'Anónimx';
+  localStorage.setItem('mj_usuario', usuario);
+});
+
+function setSyncState(state) {
+  const dot = document.getElementById('sync-dot');
+  const label = document.getElementById('sync-label');
+  dot.className = 'sync-dot ' + state;
+  label.textContent = { conectado: 'En línea', sincronizando: 'Guardando...', error: 'Sin conexión' }[state] || 'Conectando...';
 }
-function guardarStorage() {
-  try { localStorage.setItem('malajunta_actividades', JSON.stringify(actividades)); } catch(e) {}
-}
+
+onValue(ref(db, 'actividades'), (snapshot) => {
+  actividades = snapshot.val() || {};
+  setSyncState('conectado');
+  render();
+  if (seleccionada) {
+    if (actividades[seleccionada]) { renderDetalle(); document.getElementById('detalle-panel').style.display = 'block'; }
+    else { seleccionada = null; document.getElementById('detalle-panel').style.display = 'none'; }
+  }
+}, () => setSyncState('error'));
 
 function crearEstadoInicial() {
   const estado = {};
   for (const [areaId, area] of Object.entries(AREAS)) {
     estado[areaId] = {};
-    for (const t of area.tareas) estado[areaId][t.id] = { estado: 'pendiente', nota: '' };
+    for (const t of area.tareas) estado[areaId][t.id] = { estado: 'pendiente', nota: '', quien: '', cuando: '' };
   }
   return estado;
 }
@@ -387,47 +270,11 @@ function calcularProgreso(act) {
   for (const [areaId, area] of Object.entries(AREAS)) {
     for (const t of area.tareas) {
       total++;
-      const e = act.estado[areaId]?.[t.id]?.estado;
+      const e = act.estado?.[areaId]?.[t.id]?.estado;
       if (e === 'ok' || e === 'na') hechas++;
     }
   }
   return Math.round((hechas / total) * 100);
-}
-
-function renderStats() {
-  const total = actividades.length;
-  const completadas = actividades.filter(a => calcularProgreso(a) === 100).length;
-  const enCurso = actividades.filter(a => { const p = calcularProgreso(a); return p > 0 && p < 100; }).length;
-  document.getElementById('stats-bar').innerHTML = `
-    <div class="stat-chip"><span class="val">${total}</span> actividades</div>
-    <div class="stat-chip"><span class="val" style="color:var(--verde)">${completadas}</span> completas</div>
-    <div class="stat-chip"><span class="val" style="color:var(--acento)">${enCurso}</span> en curso</div>
-  `;
-}
-
-function renderLista() {
-  const el = document.getElementById('actividades-list');
-  if (actividades.length === 0) {
-    el.innerHTML = `<div class="empty-state"><div class="big">🏴</div><p>Todavía no hay actividades.<br>Creá la primera con el botón de arriba.</p></div>`;
-    return;
-  }
-  el.innerHTML = actividades.map((act, i) => {
-    const prog = calcularProgreso(act);
-    const sel = seleccionada === i ? 'selected' : '';
-    return `
-      <div class="actividad-card ${sel}" onclick="seleccionar(${i})">
-        <div class="actividad-card-header">
-          <div class="actividad-nombre">${act.nombre}</div>
-          <div class="actividad-tipo">${act.tipo}</div>
-          ${act.fecha ? `<div class="actividad-fecha">${formatFecha(act.fecha)}</div>` : ''}
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:${prog===100?'var(--verde)':prog>0?'var(--acento)':'var(--gris-claro)'}">${prog}%</div>
-        </div>
-        <div class="progress-bar-wrap">
-          <div class="progress-bar-fill" style="width:${prog}%;background:${prog===100?'var(--verde)':prog>50?'var(--acento)':'var(--celeste)'}"></div>
-        </div>
-      </div>
-    `;
-  }).join('');
 }
 
 function formatFecha(f) {
@@ -436,42 +283,78 @@ function formatFecha(f) {
   return `${d}/${m}/${y}`;
 }
 
-function seleccionar(i) {
-  if (seleccionada === i) {
-    seleccionada = null;
-    document.getElementById('detalle-panel').style.display = 'none';
-  } else {
-    seleccionada = i;
-    renderDetalle();
-    document.getElementById('detalle-panel').style.display = 'block';
+function formatTs(ts) {
+  if (!ts) return '';
+  const d = new Date(ts);
+  return d.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit' }) + ' ' +
+    d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+}
+
+function renderStats() {
+  const ids = Object.keys(actividades);
+  const total = ids.length;
+  const completadas = ids.filter(id => calcularProgreso(actividades[id]) === 100).length;
+  const enCurso = ids.filter(id => { const p = calcularProgreso(actividades[id]); return p > 0 && p < 100; }).length;
+  document.getElementById('stats-bar').innerHTML = `
+    <div class="stat-chip"><span class="val">${total}</span>&nbsp;actividades</div>
+    <div class="stat-chip"><span class="val" style="color:var(--verde)">${completadas}</span>&nbsp;completas</div>
+    <div class="stat-chip"><span class="val" style="color:var(--acento)">${enCurso}</span>&nbsp;en curso</div>
+  `;
+}
+
+function renderLista() {
+  const el = document.getElementById('actividades-list');
+  const ids = Object.keys(actividades);
+  if (ids.length === 0) {
+    el.innerHTML = `<div class="empty-state"><div class="big">🏴</div><p>Todavía no hay actividades.<br>Creá la primera con el botón de arriba.</p></div>`;
+    return;
   }
-  renderLista();
+  ids.sort((a, b) => (actividades[a].fecha || '') < (actividades[b].fecha || '') ? -1 : 1);
+  el.innerHTML = ids.map(id => {
+    const act = actividades[id];
+    const prog = calcularProgreso(act);
+    const sel = seleccionada === id ? 'selected' : '';
+    const pctColor = prog === 100 ? 'var(--verde)' : prog > 0 ? 'var(--acento)' : 'var(--gris-claro)';
+    const barColor = prog === 100 ? 'var(--verde)' : prog > 50 ? 'var(--acento)' : 'var(--celeste)';
+    return `
+      <div class="actividad-card ${sel}" onclick="seleccionar('${id}')">
+        <div class="actividad-card-header">
+          <div class="actividad-nombre">${act.nombre}</div>
+          <span class="tag">${act.tipo}</span>
+          ${act.fecha ? `<span class="actividad-fecha">${formatFecha(act.fecha)}</span>` : ''}
+          ${act.zona ? `<span class="tag zona">${act.zona}</span>` : ''}
+          <span class="pct" style="color:${pctColor}">${prog}%</span>
+        </div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${prog}%;background:${barColor}"></div></div>
+      </div>
+    `;
+  }).join('');
 }
 
 function renderDetalle() {
-  if (seleccionada === null) return;
+  if (!seleccionada || !actividades[seleccionada]) return;
   const act = actividades[seleccionada];
   const panel = document.getElementById('detalle-panel');
 
   const areasHTML = Object.entries(AREAS).map(([areaId, area]) => {
     const tareasHTML = area.tareas.map(t => {
-      const estadoAct = act.estado[areaId]?.[t.id] || { estado: 'pendiente', nota: '' };
-      const e = estadoAct.estado;
-      const btns = ESTADOS.map(st => `
-        <button class="estado-btn ${st}" onclick="toggleEstado(${seleccionada},'${areaId}','${t.id}','${st}')"
-          title="${st}" style="${e!==st?'opacity:0.3':''}">${ESTADO_ICONS[st]}</button>
-      `).join('');
+      const td = act.estado?.[areaId]?.[t.id] || { estado: 'pendiente', nota: '', quien: '', cuando: '' };
+      const e = td.estado;
+      const btns = ESTADOS.map(st =>
+        `<button class="estado-btn ${st}" onclick="toggleEstado('${seleccionada}','${areaId}','${t.id}','${st}')"
+          title="${st}" style="${e!==st?'opacity:0.3':''}">${ESTADO_ICONS[st]}</button>`
+      ).join('');
+      const meta = td.quien ? `<div class="tarea-meta">${td.quien} · ${formatTs(td.cuando)}</div>` : '';
       return `
         <div class="tarea-row">${btns}<span class="tarea-label">${t.label}</span></div>
-        <input class="tarea-nota" type="text" placeholder="nota..." value="${estadoAct.nota||''}"
-          onchange="guardarNota(${seleccionada},'${areaId}','${t.id}',this.value)">
+        ${meta}
+        <input class="tarea-nota" type="text" placeholder="nota..." value="${td.nota||''}"
+          onchange="guardarNota('${seleccionada}','${areaId}','${t.id}',this.value)">
       `;
     }).join('');
     return `
       <div class="area-block">
-        <div class="area-title color-${area.color}">
-          <div class="area-dot dot-${area.color}"></div>${area.label}
-        </div>
+        <div class="area-title color-${area.color}"><div class="area-dot dot-${area.color}"></div>${area.label}</div>
         ${tareasHTML}
       </div>
     `;
@@ -480,77 +363,81 @@ function renderDetalle() {
   panel.innerHTML = `
     <div class="detalle-panel">
       <div class="detalle-nombre-edit">
-        <input type="text" value="${act.nombre}" onchange="editarCampo(${seleccionada},'nombre',this.value)" style="flex:2">
-        <select onchange="editarCampo(${seleccionada},'tipo',this.value)">
+        <input type="text" value="${act.nombre}" onchange="editarCampo('${seleccionada}','nombre',this.value)" style="flex:2">
+        <select onchange="editarCampo('${seleccionada}','tipo',this.value)">
           ${['Política','Cultural','Salud','Educativa','Solidaria','Género'].map(t=>`<option ${act.tipo===t?'selected':''}>${t}</option>`).join('')}
         </select>
-        <input type="date" value="${act.fecha||''}" onchange="editarCampo(${seleccionada},'fecha',this.value)">
-        <input type="text" placeholder="Zona" value="${act.zona||''}" onchange="editarCampo(${seleccionada},'zona',this.value)" style="flex:1">
-        <button class="btn danger small" onclick="eliminarActividad(${seleccionada})">Eliminar</button>
+        <input type="date" value="${act.fecha||''}" onchange="editarCampo('${seleccionada}','fecha',this.value)">
+        <input type="text" placeholder="Zona" value="${act.zona||''}" onchange="editarCampo('${seleccionada}','zona',this.value)" style="flex:1">
+        <button class="btn danger small" onclick="eliminarActividad('${seleccionada}')">Eliminar</button>
       </div>
       <div class="areas-grid">${areasHTML}</div>
     </div>
   `;
 }
 
-function toggleEstado(actIdx, areaId, tareaId, estado) {
-  if (!actividades[actIdx].estado[areaId]) actividades[actIdx].estado[areaId] = {};
-  if (!actividades[actIdx].estado[areaId][tareaId]) actividades[actIdx].estado[areaId][tareaId] = { estado: 'pendiente', nota: '' };
-  actividades[actIdx].estado[areaId][tareaId].estado = estado;
-  guardarStorage(); renderDetalle(); renderLista(); renderStats();
-}
+function render() { renderStats(); renderLista(); }
 
-function guardarNota(actIdx, areaId, tareaId, nota) {
-  if (!actividades[actIdx].estado[areaId][tareaId]) actividades[actIdx].estado[areaId][tareaId] = { estado: 'pendiente', nota: '' };
-  actividades[actIdx].estado[areaId][tareaId].nota = nota;
-  guardarStorage();
-}
+window.seleccionar = function(id) {
+  if (seleccionada === id) { seleccionada = null; document.getElementById('detalle-panel').style.display = 'none'; }
+  else { seleccionada = id; renderDetalle(); document.getElementById('detalle-panel').style.display = 'block'; }
+  renderLista();
+};
 
-function editarCampo(actIdx, campo, valor) {
-  actividades[actIdx][campo] = valor;
-  guardarStorage(); renderLista(); renderStats();
-}
+window.toggleEstado = function(actId, areaId, tareaId, estado) {
+  setSyncState('sincronizando');
+  update(ref(db, `actividades/${actId}/estado/${areaId}/${tareaId}`), {
+    estado, quien: usuario || 'Anónimx', cuando: Date.now()
+  }).then(() => setSyncState('conectado')).catch(() => setSyncState('error'));
+};
 
-function eliminarActividad(i) {
-  if (!confirm(`¿Eliminar "${actividades[i].nombre}"?`)) return;
-  actividades.splice(i, 1);
-  seleccionada = null;
-  document.getElementById('detalle-panel').style.display = 'none';
-  guardarStorage(); render();
-}
+window.guardarNota = function(actId, areaId, tareaId, nota) {
+  setSyncState('sincronizando');
+  update(ref(db, `actividades/${actId}/estado/${areaId}/${tareaId}`), { nota })
+    .then(() => setSyncState('conectado')).catch(() => setSyncState('error'));
+};
 
-function abrirModal() {
+window.editarCampo = function(actId, campo, valor) {
+  setSyncState('sincronizando');
+  update(ref(db, `actividades/${actId}`), { [campo]: valor })
+    .then(() => setSyncState('conectado')).catch(() => setSyncState('error'));
+};
+
+window.eliminarActividad = function(id) {
+  if (!confirm(`¿Eliminar "${actividades[id]?.nombre}"?`)) return;
+  setSyncState('sincronizando');
+  remove(ref(db, `actividades/${id}`))
+    .then(() => { setSyncState('conectado'); seleccionada = null; document.getElementById('detalle-panel').style.display = 'none'; })
+    .catch(() => setSyncState('error'));
+};
+
+window.abrirModal = function() {
   document.getElementById('modal').style.display = 'flex';
   document.getElementById('m-fecha').value = new Date().toISOString().split('T')[0];
   document.getElementById('m-nombre').value = '';
   document.getElementById('m-zona').value = '';
-}
+};
 
-function cerrarModal() { document.getElementById('modal').style.display = 'none'; }
+window.cerrarModal = function() { document.getElementById('modal').style.display = 'none'; };
 
-function crearActividad() {
+window.crearActividad = function() {
   const nombre = document.getElementById('m-nombre').value.trim();
   if (!nombre) { alert('Poné un nombre para la actividad'); return; }
-  actividades.push({
-    nombre,
-    tipo: document.getElementById('m-tipo').value,
+  const nueva = {
+    nombre, tipo: document.getElementById('m-tipo').value,
     fecha: document.getElementById('m-fecha').value,
     zona: document.getElementById('m-zona').value.trim(),
+    creadoPor: usuario || 'Anónimx', creadoEn: Date.now(),
     estado: crearEstadoInicial()
-  });
-  guardarStorage(); cerrarModal();
-  seleccionada = actividades.length - 1;
-  render();
-  document.getElementById('detalle-panel').style.display = 'block';
-  renderDetalle();
-}
+  };
+  setSyncState('sincronizando');
+  const newRef = push(ref(db, 'actividades'));
+  set(newRef, nueva)
+    .then(() => { setSyncState('conectado'); cerrarModal(); seleccionada = newRef.key; })
+    .catch(() => setSyncState('error'));
+};
 
-function render() { renderStats(); renderLista(); }
-
-document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) cerrarModal(); });
-
-cargarStorage();
-render();
+document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) cerrarModal(); });
 </script>
 </body>
 </html>
