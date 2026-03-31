@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestión de Actividades – Mala Junta</title>
+<title>Gestión de Actividades</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
 
@@ -15,35 +15,62 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--gris); font-family: 'IBM Plex Sans', sans-serif; color: var(--blanco); min-height: 100vh; }
 
+  /* ── AUTH SCREEN ── */
+  #auth-screen {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: var(--gris);
+  }
+  .auth-box {
+    width: 380px; max-width: 95vw;
+    border-top: 4px solid var(--acento);
+    background: var(--gris-medio);
+    padding: 32px;
+  }
+  .auth-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 3px; color: var(--acento); margin-bottom: 4px; }
+  .auth-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gris-claro); margin-bottom: 28px; }
+  .auth-tabs { display: flex; margin-bottom: 24px; border-bottom: 1px solid var(--gris-claro); }
+  .auth-tab { flex: 1; padding: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; text-align: center; color: var(--gris-claro); border: none; background: transparent; transition: all 0.15s; }
+  .auth-tab.active { color: var(--acento); border-bottom: 2px solid var(--acento); margin-bottom: -1px; }
+  .auth-form { display: flex; flex-direction: column; gap: 14px; }
+  .auth-form input {
+    background: rgba(0,0,0,0.3); border: 1px solid var(--gris-claro);
+    color: var(--blanco); padding: 10px 12px;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; width: 100%;
+  }
+  .auth-form input:focus { outline: none; border-color: var(--celeste); }
+  .auth-form input::placeholder { color: var(--gris-claro); }
+  .auth-btn {
+    background: var(--acento); color: var(--texto); border: none;
+    padding: 11px; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+    letter-spacing: 2px; cursor: pointer; transition: all 0.15s; margin-top: 4px;
+  }
+  .auth-btn:hover { background: white; }
+  .auth-error { background: rgba(224,85,85,0.15); border-left: 3px solid var(--rojo); padding: 8px 12px; font-size: 0.8rem; color: #f99; display: none; }
+  .auth-error.visible { display: block; }
+
+  /* ── APP ── */
+  #app-screen { display: none; }
+
   header { background: var(--celeste); border-bottom: 4px solid var(--acento); }
   .header-inner { display: flex; align-items: stretch; }
   .header-flag { display: flex; flex-direction: column; width: 10px; flex-shrink: 0; }
   .flag-stripe { flex: 1; }
   .flag-stripe.celeste { background: var(--celeste); }
   .flag-stripe.blanco { background: white; }
-  .header-content { padding: 14px 20px; flex: 1; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .header-content { padding: 14px 20px; flex: 1; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .header-titles { flex: 1; }
   .app-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--texto); letter-spacing: 2px; line-height: 1; }
   .app-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--gris); letter-spacing: 3px; text-transform: uppercase; margin-top: 3px; opacity: 0.7; }
 
-  .usuario-wrap { display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.12); padding: 5px 10px; }
-  .usuario-wrap label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--gris); opacity: 0.8; white-space: nowrap; }
-  .usuario-wrap input { background: transparent; border: none; border-bottom: 1px solid rgba(0,0,0,0.2); color: var(--texto); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; width: 110px; padding: 1px 2px; }
-  .usuario-wrap input:focus { outline: none; border-bottom-color: var(--texto); }
+  .user-chip { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; background: rgba(0,0,0,0.15); padding: 5px 12px; color: var(--texto); display: flex; align-items: center; gap: 8px; }
+  .user-chip .name { font-weight: 600; }
 
   .sync-indicator { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 1px; padding: 5px 10px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.12); color: var(--texto); white-space: nowrap; }
   .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gris-claro); transition: background 0.3s; }
   .sync-dot.conectado { background: var(--verde); }
   .sync-dot.sincronizando { background: var(--acento); animation: pulso 0.8s infinite; }
   .sync-dot.error { background: var(--rojo); }
-  @keyframes pulso { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
-
-  .main { padding: 20px; max-width: 900px; margin: 0 auto; }
-
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px; color: var(--acento); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--gris-claro); }
-
-  .actividades-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  @keyframes pulso { 0%,100%{opacity:1}50%{opacity:0.3} }
 
   .btn { background: var(--acento); color: var(--texto); border: none; padding: 8px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; text-transform: uppercase; transition: all 0.15s; }
   .btn:hover { background: white; }
@@ -52,7 +79,20 @@
   .btn.danger { background: var(--rojo); color: white; }
   .btn.danger:hover { background: #c04040; }
   .btn.small { padding: 4px 10px; font-size: 0.65rem; }
+  .btn.ghost { background: transparent; color: var(--gris-claro); border: 1px solid var(--gris-claro); }
+  .btn.ghost:hover { color: var(--blanco); border-color: var(--blanco); }
 
+  .nav-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--gris-claro); margin-bottom: 20px; }
+  .nav-tab { padding: 10px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; color: var(--gris-claro); border: none; background: transparent; transition: all 0.15s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .nav-tab.active { color: var(--acento); border-bottom-color: var(--acento); }
+  .nav-tab:hover:not(.active) { color: var(--blanco); }
+
+  .main { padding: 20px; max-width: 900px; margin: 0 auto; }
+
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px; color: var(--acento); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--gris-claro); }
+
+  .actividades-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
   .actividades-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
 
   .actividad-card { background: var(--gris-medio); border-left: 4px solid var(--gris-claro); cursor: pointer; transition: all 0.15s; overflow: hidden; }
@@ -68,8 +108,7 @@
   .progress-bar-fill { height: 100%; transition: width 0.4s ease; }
 
   .detalle-panel { background: var(--gris-medio); padding: 20px; margin-bottom: 24px; animation: slideIn 0.2s ease; }
-  @keyframes slideIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-
+  @keyframes slideIn { from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)} }
   .detalle-nombre-edit { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--gris-claro); flex-wrap: wrap; }
   .detalle-nombre-edit input, .detalle-nombre-edit select { background: rgba(0,0,0,0.3); border: 1px solid var(--gris-claro); color: var(--blanco); padding: 6px 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; }
   .detalle-nombre-edit input { flex: 1; min-width: 140px; }
@@ -84,7 +123,6 @@
 
   .tarea-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
   .tarea-label { flex: 1; font-size: 0.8rem; color: #ccc; }
-
   .estado-btn { width: 28px; height: 28px; border: none; cursor: pointer; font-size: 0.75rem; font-weight: bold; border-radius: 2px; transition: all 0.1s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .estado-btn.pendiente { background: rgba(255,255,255,0.1); color: #aaa; }
   .estado-btn.pendiente:hover { background: rgba(255,255,255,0.2); }
@@ -96,14 +134,32 @@
   .tarea-nota { background: rgba(0,0,0,0.25); border: none; border-bottom: 1px solid var(--gris-claro); color: #bbb; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; padding: 3px 6px; margin-bottom: 8px; margin-left: 120px; width: calc(100% - 120px); }
   .tarea-nota:focus { outline: none; border-bottom-color: var(--celeste); color: white; }
 
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; z-index: 100; }
-  .modal { background: var(--gris-medio); padding: 24px; width: 420px; max-width: 95vw; border-top: 3px solid var(--acento); }
-  .modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 16px; color: var(--acento); }
-  .form-field { margin-bottom: 12px; }
-  .form-field label { display: block; font-size: 0.65rem; font-family: 'IBM Plex Mono', monospace; letter-spacing: 2px; text-transform: uppercase; color: #aaa; margin-bottom: 4px; }
-  .form-field input, .form-field select { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--gris-claro); color: var(--blanco); padding: 8px 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; }
-  .form-field select option { background: #3d3d3d; }
-  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+  /* ── ADMIN PANEL ── */
+  .admin-section { margin-bottom: 32px; }
+  .admin-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 2px; color: var(--acento); margin-bottom: 14px; }
+
+  .invite-generator { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  .invite-generator input { background: rgba(0,0,0,0.3); border: 1px solid var(--gris-claro); color: var(--blanco); padding: 8px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; flex: 1; min-width: 200px; }
+
+  .invite-list { display: flex; flex-direction: column; gap: 6px; }
+  .invite-row { background: var(--gris-medio); padding: 10px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .invite-code { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; color: var(--acento); letter-spacing: 2px; flex: 1; }
+  .invite-note { font-size: 0.75rem; color: var(--gris-claro); flex: 1; }
+  .invite-status { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 1px; padding: 2px 8px; }
+  .invite-status.disponible { background: rgba(76,175,125,0.2); color: var(--verde); }
+  .invite-status.usado { background: rgba(90,90,90,0.3); color: var(--gris-claro); }
+
+  .usuarios-list { display: flex; flex-direction: column; gap: 6px; }
+  .usuario-row { background: var(--gris-medio); padding: 10px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .usuario-nombre { flex: 1; font-weight: 600; font-size: 0.85rem; }
+  .usuario-email { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--gris-claro); flex: 1; }
+  .usuario-rol { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 1px; padding: 2px 8px; }
+  .usuario-rol.admin { background: rgba(232,197,71,0.2); color: var(--acento); }
+  .usuario-rol.militante { background: rgba(116,172,223,0.2); color: var(--celeste); }
+
+  .stats-bar { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .stat-chip { background: rgba(0,0,0,0.3); padding: 6px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
+  .stat-chip .val { font-size: 1rem; font-weight: 600; }
 
   .empty-state { text-align: center; padding: 40px 20px; color: var(--gris-claro); }
   .empty-state .big { font-size: 2rem; margin-bottom: 8px; }
@@ -115,47 +171,115 @@
   .color-organizacion { color: var(--verde); } .dot-organizacion { background: var(--verde); }
   .color-finanzas { color: var(--naranja); } .dot-finanzas { background: var(--naranja); }
 
-  .stats-bar { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
-  .stat-chip { background: rgba(0,0,0,0.3); padding: 6px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
-  .stat-chip .val { font-size: 1rem; font-weight: 600; }
+  /* ── MODAL ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: flex; align-items: center; justify-content: center; z-index: 100; }
+  .modal { background: var(--gris-medio); padding: 24px; width: 420px; max-width: 95vw; border-top: 3px solid var(--acento); }
+  .modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 16px; color: var(--acento); }
+  .form-field { margin-bottom: 12px; }
+  .form-field label { display: block; font-size: 0.65rem; font-family: 'IBM Plex Mono', monospace; letter-spacing: 2px; text-transform: uppercase; color: #aaa; margin-bottom: 4px; }
+  .form-field input, .form-field select { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--gris-claro); color: var(--blanco); padding: 8px 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; }
+  .form-field select option { background: #3d3d3d; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.3); border-top-color: var(--texto); border-radius: 50%; animation: spin 0.6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="header-flag">
-      <div class="flag-stripe celeste"></div>
-      <div class="flag-stripe blanco"></div>
-      <div class="flag-stripe celeste"></div>
+<!-- ══ AUTH SCREEN ══ -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">Mala Junta</div>
+    <div class="auth-sub">Panel organizativo · Gestión de actividades</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Ingresar</button>
+      <button class="auth-tab" onclick="switchTab('registro')">Registrarse</button>
     </div>
-    <div class="header-content">
-      <div class="header-titles">
-        <div class="app-title">Gestión de Actividades</div>
-        <div class="app-subtitle">Panel organizativo</div>
-      </div>
-      <div class="usuario-wrap">
-        <label>Militante:</label>
-        <input type="text" id="usuario-input" placeholder="tu nombre" maxlength="30">
-      </div>
-      <div class="sync-indicator">
-        <div class="sync-dot" id="sync-dot"></div>
-        <span id="sync-label">Conectando...</span>
-      </div>
-    </div>
-  </div>
-</header>
 
-<div class="main">
-  <div id="stats-bar" class="stats-bar"></div>
-  <div class="actividades-header">
-    <div class="section-title" style="margin:0;flex:1">Actividades</div>
-    <button class="btn" onclick="abrirModal()">+ Nueva actividad</button>
+    <!-- LOGIN -->
+    <div id="tab-login" class="auth-form">
+      <input type="email" id="login-email" placeholder="Email">
+      <input type="password" id="login-pass" placeholder="Contraseña">
+      <div class="auth-error" id="login-error"></div>
+      <button class="auth-btn" onclick="doLogin()">Ingresar</button>
+    </div>
+
+    <!-- REGISTRO -->
+    <div id="tab-registro" class="auth-form" style="display:none">
+      <input type="text" id="reg-nombre" placeholder="Nombre completo">
+      <input type="email" id="reg-email" placeholder="Email">
+      <input type="password" id="reg-pass" placeholder="Contraseña (mín. 6 caracteres)">
+      <input type="text" id="reg-codigo" placeholder="Código de invitación" style="letter-spacing:3px;text-transform:uppercase">
+      <div class="auth-error" id="reg-error"></div>
+      <button class="auth-btn" onclick="doRegistro()">Crear cuenta</button>
+    </div>
   </div>
-  <div class="actividades-list" id="actividades-list"><div class="loading">Cargando datos...</div></div>
-  <div id="detalle-panel" style="display:none"></div>
 </div>
 
+<!-- ══ APP SCREEN ══ -->
+<div id="app-screen">
+  <header>
+    <div class="header-inner">
+      <div class="header-flag">
+        <div class="flag-stripe celeste"></div>
+        <div class="flag-stripe blanco"></div>
+        <div class="flag-stripe celeste"></div>
+      </div>
+      <div class="header-content">
+        <div class="header-titles">
+          <div class="app-title">Gestión de Actividades</div>
+          <div class="app-subtitle">Panel organizativo</div>
+        </div>
+        <div class="user-chip">
+          <span class="name" id="header-nombre"></span>
+          <span id="header-rol" style="opacity:0.6"></span>
+        </div>
+        <div class="sync-indicator">
+          <div class="sync-dot" id="sync-dot"></div>
+          <span id="sync-label">Conectando...</span>
+        </div>
+        <button class="btn ghost small" onclick="doLogout()">Salir</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="nav-tabs" id="nav-tabs">
+      <button class="nav-tab active" onclick="showTab('actividades')">Actividades</button>
+      <button class="nav-tab admin-only" onclick="showTab('admin')" style="display:none">Admin</button>
+    </div>
+
+    <!-- TAB ACTIVIDADES -->
+    <div id="tab-actividades">
+      <div id="stats-bar" class="stats-bar"></div>
+      <div class="actividades-header">
+        <div class="section-title" style="margin:0;flex:1">Actividades</div>
+        <button class="btn" onclick="abrirModal()">+ Nueva actividad</button>
+      </div>
+      <div class="actividades-list" id="actividades-list"><div class="loading">Cargando...</div></div>
+      <div id="detalle-panel" style="display:none"></div>
+    </div>
+
+    <!-- TAB ADMIN -->
+    <div id="tab-admin" style="display:none">
+      <div class="admin-section">
+        <h3>Generar código de invitación</h3>
+        <div class="invite-generator">
+          <input type="text" id="invite-nota" placeholder="Nota (ej: para Juan Pérez)">
+          <button class="btn" onclick="generarCodigo()">Generar código</button>
+        </div>
+        <div class="invite-list" id="invite-list"><div class="loading">Cargando...</div></div>
+      </div>
+      <div class="admin-section">
+        <h3>Militantes registrados</h3>
+        <div class="usuarios-list" id="usuarios-list"><div class="loading">Cargando...</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal nueva actividad -->
 <div class="modal-overlay" id="modal" style="display:none">
   <div class="modal">
     <h3>Nueva Actividad</h3>
@@ -174,7 +298,10 @@
 
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getDatabase, ref, onValue, set, update, remove, push } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getDatabase, ref, onValue, set, update, remove, push, get }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvUpbVMGtPt9CdToy5rhYWuxY2ZWAgO0U",
@@ -187,8 +314,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getDatabase(app);
 
+// ── ÁREAS ──────────────────────────────────────────────────────────
 const AREAS = {
   prensa: { label: 'Prensa', color: 'prensa', tareas: [
     { id: 'difusion', label: 'Difusión' },
@@ -230,31 +359,16 @@ const ESTADO_ICONS = { pendiente: '–', ok: '✓', na: 'N/A', problema: '!' };
 
 let actividades = {};
 let seleccionada = null;
-let usuario = localStorage.getItem('mj_usuario') || '';
+let currentUser = null;
+let currentUserData = null;
 
-const usuarioInput = document.getElementById('usuario-input');
-usuarioInput.value = usuario;
-usuarioInput.addEventListener('change', () => {
-  usuario = usuarioInput.value.trim() || 'Anónimx';
-  localStorage.setItem('mj_usuario', usuario);
-});
-
+// ── HELPERS ────────────────────────────────────────────────────────
 function setSyncState(state) {
   const dot = document.getElementById('sync-dot');
   const label = document.getElementById('sync-label');
   dot.className = 'sync-dot ' + state;
   label.textContent = { conectado: 'En línea', sincronizando: 'Guardando...', error: 'Sin conexión' }[state] || 'Conectando...';
 }
-
-onValue(ref(db, 'actividades'), (snapshot) => {
-  actividades = snapshot.val() || {};
-  setSyncState('conectado');
-  render();
-  if (seleccionada) {
-    if (actividades[seleccionada]) { renderDetalle(); document.getElementById('detalle-panel').style.display = 'block'; }
-    else { seleccionada = null; document.getElementById('detalle-panel').style.display = 'none'; }
-  }
-}, () => setSyncState('error'));
 
 function crearEstadoInicial() {
   const estado = {};
@@ -290,6 +404,218 @@ function formatTs(ts) {
     d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
 }
 
+function generarCodigoAleatorio() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = '';
+  for (let i = 0; i < 8; i++) {
+    if (i === 4) code += '-';
+    code += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return code;
+}
+
+// ── AUTH TABS ──────────────────────────────────────────────────────
+window.switchTab = function(tab) {
+  document.getElementById('tab-login').style.display = tab === 'login' ? 'flex' : 'none';
+  document.getElementById('tab-registro').style.display = tab === 'registro' ? 'flex' : 'none';
+  document.querySelectorAll('.auth-tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'registro'));
+  });
+};
+
+// ── LOGIN ──────────────────────────────────────────────────────────
+window.doLogin = async function() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-error');
+  errEl.classList.remove('visible');
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    const msgs = {
+      'auth/invalid-credential': 'Email o contraseña incorrectos.',
+      'auth/user-not-found': 'No existe una cuenta con ese email.',
+      'auth/wrong-password': 'Contraseña incorrecta.',
+      'auth/invalid-email': 'Email inválido.',
+    };
+    errEl.textContent = msgs[e.code] || 'Error al ingresar. Intentá de nuevo.';
+    errEl.classList.add('visible');
+  }
+};
+
+// ── REGISTRO ───────────────────────────────────────────────────────
+window.doRegistro = async function() {
+  const nombre = document.getElementById('reg-nombre').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pass = document.getElementById('reg-pass').value;
+  const codigo = document.getElementById('reg-codigo').value.trim().toUpperCase().replace(/\s/g,'');
+  const errEl = document.getElementById('reg-error');
+  errEl.classList.remove('visible');
+
+  if (!nombre || !email || !pass || !codigo) {
+    errEl.textContent = 'Completá todos los campos.'; errEl.classList.add('visible'); return;
+  }
+  if (pass.length < 6) {
+    errEl.textContent = 'La contraseña debe tener al menos 6 caracteres.'; errEl.classList.add('visible'); return;
+  }
+
+  // Verificar código
+  try {
+    const invSnap = await get(ref(db, `invitaciones/${codigo}`));
+    if (!invSnap.exists()) {
+      errEl.textContent = 'Código de invitación inválido.'; errEl.classList.add('visible'); return;
+    }
+    const inv = invSnap.val();
+    if (inv.usado) {
+      errEl.textContent = 'Este código ya fue utilizado.'; errEl.classList.add('visible'); return;
+    }
+
+    // Crear usuario
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    const uid = cred.user.uid;
+
+    // Verificar si es el primer usuario (se convierte en admin)
+    const usersSnap = await get(ref(db, 'usuarios'));
+    const esAdmin = !usersSnap.exists() || Object.keys(usersSnap.val() || {}).length === 0;
+
+    // Guardar perfil
+    await set(ref(db, `usuarios/${uid}`), {
+      nombre, email, rol: esAdmin ? 'admin' : 'militante', creadoEn: Date.now()
+    });
+
+    // Marcar código como usado
+    await update(ref(db, `invitaciones/${codigo}`), { usado: true, usadoPor: nombre, usadoEn: Date.now() });
+
+  } catch(e) {
+    const msgs = {
+      'auth/email-already-in-use': 'Ya existe una cuenta con ese email.',
+      'auth/invalid-email': 'Email inválido.',
+      'auth/weak-password': 'La contraseña es muy débil.',
+    };
+    errEl.textContent = msgs[e.code] || 'Error al registrarse. Intentá de nuevo.';
+    errEl.classList.add('visible');
+  }
+};
+
+// ── LOGOUT ─────────────────────────────────────────────────────────
+window.doLogout = async function() {
+  await signOut(auth);
+};
+
+// ── AUTH STATE ─────────────────────────────────────────────────────
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    currentUser = user;
+    // Cargar datos del usuario
+    const snap = await get(ref(db, `usuarios/${user.uid}`));
+    if (snap.exists()) {
+      currentUserData = snap.val();
+      document.getElementById('header-nombre').textContent = currentUserData.nombre;
+      document.getElementById('header-rol').textContent = currentUserData.rol === 'admin' ? '· Admin' : '';
+      if (currentUserData.rol === 'admin') {
+        document.querySelectorAll('.admin-only').forEach(el => el.style.display = '');
+      }
+    }
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display = 'block';
+    iniciarApp();
+  } else {
+    currentUser = null;
+    currentUserData = null;
+    document.getElementById('auth-screen').style.display = 'flex';
+    document.getElementById('app-screen').style.display = 'none';
+  }
+});
+
+// ── APP INIT ───────────────────────────────────────────────────────
+function iniciarApp() {
+  onValue(ref(db, 'actividades'), (snapshot) => {
+    actividades = snapshot.val() || {};
+    setSyncState('conectado');
+    render();
+    if (seleccionada) {
+      if (actividades[seleccionada]) { renderDetalle(); document.getElementById('detalle-panel').style.display = 'block'; }
+      else { seleccionada = null; document.getElementById('detalle-panel').style.display = 'none'; }
+    }
+  }, () => setSyncState('error'));
+}
+
+// ── NAV TABS ───────────────────────────────────────────────────────
+window.showTab = function(tab) {
+  document.getElementById('tab-actividades').style.display = tab === 'actividades' ? 'block' : 'none';
+  document.getElementById('tab-admin').style.display = tab === 'admin' ? 'block' : 'none';
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  if (tab === 'admin') cargarAdmin();
+};
+
+// ── ADMIN ──────────────────────────────────────────────────────────
+async function cargarAdmin() {
+  // Invitaciones
+  const invSnap = await get(ref(db, 'invitaciones'));
+  const invs = invSnap.val() || {};
+  const invEl = document.getElementById('invite-list');
+  const invKeys = Object.keys(invs);
+  if (invKeys.length === 0) {
+    invEl.innerHTML = '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.75rem;color:var(--gris-claro);padding:10px">No hay códigos generados todavía.</div>';
+  } else {
+    invEl.innerHTML = invKeys.reverse().map(code => {
+      const inv = invs[code];
+      return `
+        <div class="invite-row">
+          <span class="invite-code">${code}</span>
+          <span class="invite-note">${inv.nota || ''}</span>
+          <span class="invite-status ${inv.usado ? 'usado' : 'disponible'}">${inv.usado ? `Usado · ${inv.usadoPor || ''}` : 'Disponible'}</span>
+          ${!inv.usado ? `<button class="btn danger small" onclick="revocarCodigo('${code}')">Revocar</button>` : ''}
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Usuarios
+  const usersSnap = await get(ref(db, 'usuarios'));
+  const users = usersSnap.val() || {};
+  const usersEl = document.getElementById('usuarios-list');
+  const userKeys = Object.keys(users);
+  if (userKeys.length === 0) {
+    usersEl.innerHTML = '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.75rem;color:var(--gris-claro);padding:10px">No hay militantes registrados.</div>';
+  } else {
+    usersEl.innerHTML = userKeys.map(uid => {
+      const u = users[uid];
+      return `
+        <div class="usuario-row">
+          <span class="usuario-nombre">${u.nombre}</span>
+          <span class="usuario-email">${u.email}</span>
+          <span class="usuario-rol ${u.rol}">${u.rol}</span>
+          ${u.rol !== 'admin' ? `<button class="btn small secondary" onclick="cambiarRol('${uid}','admin')">Hacer admin</button>` : ''}
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+window.generarCodigo = async function() {
+  const nota = document.getElementById('invite-nota').value.trim();
+  const codigo = generarCodigoAleatorio();
+  await set(ref(db, `invitaciones/${codigo}`), {
+    nota, creadoPor: currentUserData?.nombre || '', creadoEn: Date.now(), usado: false
+  });
+  document.getElementById('invite-nota').value = '';
+  cargarAdmin();
+};
+
+window.revocarCodigo = async function(codigo) {
+  if (!confirm(`¿Revocar el código ${codigo}?`)) return;
+  await remove(ref(db, `invitaciones/${codigo}`));
+  cargarAdmin();
+};
+
+window.cambiarRol = async function(uid, rol) {
+  await update(ref(db, `usuarios/${uid}`), { rol });
+  cargarAdmin();
+};
+
+// ── RENDER ─────────────────────────────────────────────────────────
 function renderStats() {
   const ids = Object.keys(actividades);
   const total = ids.length;
@@ -335,7 +661,6 @@ function renderDetalle() {
   if (!seleccionada || !actividades[seleccionada]) return;
   const act = actividades[seleccionada];
   const panel = document.getElementById('detalle-panel');
-
   const areasHTML = Object.entries(AREAS).map(([areaId, area]) => {
     const tareasHTML = area.tareas.map(t => {
       const td = act.estado?.[areaId]?.[t.id] || { estado: 'pendiente', nota: '', quien: '', cuando: '' };
@@ -378,6 +703,7 @@ function renderDetalle() {
 
 function render() { renderStats(); renderLista(); }
 
+// ── ACCIONES ───────────────────────────────────────────────────────
 window.seleccionar = function(id) {
   if (seleccionada === id) { seleccionada = null; document.getElementById('detalle-panel').style.display = 'none'; }
   else { seleccionada = id; renderDetalle(); document.getElementById('detalle-panel').style.display = 'block'; }
@@ -387,7 +713,7 @@ window.seleccionar = function(id) {
 window.toggleEstado = function(actId, areaId, tareaId, estado) {
   setSyncState('sincronizando');
   update(ref(db, `actividades/${actId}/estado/${areaId}/${tareaId}`), {
-    estado, quien: usuario || 'Anónimx', cuando: Date.now()
+    estado, quien: currentUserData?.nombre || 'Anónimx', cuando: Date.now()
   }).then(() => setSyncState('conectado')).catch(() => setSyncState('error'));
 };
 
@@ -427,7 +753,7 @@ window.crearActividad = function() {
     nombre, tipo: document.getElementById('m-tipo').value,
     fecha: document.getElementById('m-fecha').value,
     zona: document.getElementById('m-zona').value.trim(),
-    creadoPor: usuario || 'Anónimx', creadoEn: Date.now(),
+    creadoPor: currentUserData?.nombre || '', creadoEn: Date.now(),
     estado: crearEstadoInicial()
   };
   setSyncState('sincronizando');
@@ -438,6 +764,9 @@ window.crearActividad = function() {
 };
 
 document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) cerrarModal(); });
+
+// Enter en login
+document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') window.doLogin(); });
 </script>
 </body>
 </html>
